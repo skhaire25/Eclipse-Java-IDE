@@ -1,0 +1,31 @@
+1. Create Project Table:
+
+CREATE TABLE project (
+    project_id INT PRIMARY KEY AUTO_INCREMENT,
+    project_name VARCHAR(100) UNIQUE NOT NULL
+);
+
+2. Create PackageInfo Table:
+
+CREATE TABLE package_info (
+    package_id INT PRIMARY KEY AUTO_INCREMENT,
+    package_name VARCHAR(100) NOT NULL,
+    project_id INT,
+    FOREIGN KEY(project_id)
+    REFERENCES project(project_id)
+    ON DELETE CASCADE,
+    UNIQUE(project_id, package_name)
+);
+
+3. Create JavaFile Table:
+
+CREATE TABLE java_file (
+    file_id INT PRIMARY KEY AUTO_INCREMENT,
+    file_name VARCHAR(100) NOT NULL,
+    source_code LONGTEXT,
+    package_id INT,
+    FOREIGN KEY(package_id)
+    REFERENCES package_info(package_id)
+    ON DELETE CASCADE,
+    UNIQUE(package_id, file_name)
+);
